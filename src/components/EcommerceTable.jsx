@@ -7,10 +7,6 @@ require('../styles/ecommerce_table.scss');
 const PER_PAGE_COUNT = 12;
 
 class ProductList extends React.Component {
-  constructor() {
-    super();
-  }
-
   renderProducts() {
     const products = this.props.products;
     let rows = [];
@@ -41,32 +37,48 @@ export default class App extends React.Component {
     super();
 
     this.state = { 
-      products: [],
-      page: 1,
+      products: []
     };
   }
 
-  componentDidMount() {
-    this.loadProducts();
-  }
+  //componentDidMount() {
+    //this.loadProducts();
+  //}
 
-  loadProducts() {
-    axios.get('http://localhost:3000/api/v1/products', {
-      params: {
-        page: this.state.page 
-      }
-    })
-    .then(products => {
-      this.setState({ products: products.data.products });
+  //loadProducts() {
+    //axios.get('http://localhost:3000/api/v1/products', {
+      //params: {
+        //page: this.state.page 
+      //}
+    //})
+    //.then(products => {
+      //this.setState({ products: products.data.products });
+    //});
+  //}
+
+  //TODO: iffy because that means every time we get a new shop, we only render the first 12
+  //      may cause issues cus we may want to keep it at a certain page. but receiving the props
+  //      will cause it to always render the first 12 (per page count)
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      products: newProps.products.slice(0, PER_PAGE_COUNT)
     });
+    //debugger;
+    //this.handlePageClick({selected: 0});
   }
 
   handlePageClick(data) {
-    const page = data.selected + 1;
+    const page = data.selected;
+    const offset = page * PER_PAGE_COUNT;
 
-    this.setState({ page }, () => {
-      this.loadProducts();
+    this.setState({
+      products: this.props.products.slice(offset, offset + PER_PAGE_COUNT)
     });
+
+    //this.setState({ page }, () => {
+      //this.loadProducts();
+    //});
   }
 
   render() {

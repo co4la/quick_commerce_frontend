@@ -8,7 +8,8 @@ export default class App extends React.Component {
     super();
 
     this.state = {
-      shop: {}
+      shop: {},
+      products: []
     }
   }
 
@@ -20,7 +21,8 @@ export default class App extends React.Component {
     axios.get('http://localhost:3000/api/v1/users/1')
       .then(user => {
         this.setState({
-          shop: user.data.user.shops[0]
+          shop: user.data.user.shops[0],
+          products: user.data.user.shops[0].products
         });
       });
   }
@@ -29,6 +31,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Header shop={this.state.shop} />
+        <EcommerceTable products={this.state.products} />
       </div>
     );
   }
