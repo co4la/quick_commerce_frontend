@@ -1,25 +1,25 @@
 import React from 'react';
-import EcommerceTable from './EcommerceTable.jsx';
 import Header from './Header.jsx';
+import EcommerceTable from './EcommerceTable.jsx';
 
 export default class App extends React.Component {
-  //constructor() {
-    //super();
+  constructor() {
+    super();
 
-    //this.state = {
-      //shopId: null
-    //}
-  //}
-
-  componentDidMount() {
-    this.getShopId();
+    this.state = {
+      shop: {}
+    }
   }
 
-  getShopId() {
+  componentDidMount() {
+    this.loadUserShop();
+  }
+
+  loadUserShop() {
     axios.get('http://localhost:3000/api/v1/users/1')
       .then(user => {
         this.setState({
-          shopId: user.data.user.shop_id
+          shop: user.data.user.shops[0]
         });
       });
   }
@@ -27,11 +27,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Header shopId={this.state.shopId} />
-        <EcommerceTable shopId={this.state.shopId} />
+        <Header shopId={this.state.shop} />
+        <EcommerceTable shop={this.state.shop.products} />
       </div>
     );
   }
 }
-
-//header comonent
