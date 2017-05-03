@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Header from './Header.jsx';
 import EcommerceTable from './EcommerceTable.jsx';
 
@@ -27,8 +28,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Header shopId={this.state.shop} />
-        <EcommerceTable shop={this.state.shop.products} />
+        <Header shop={this.state.shop} />
       </div>
     );
   }
