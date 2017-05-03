@@ -1,0 +1,40 @@
+.product_list {
+  .product_row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .product_image {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #a0a0a0;
+    cursor: pointer;
+  }
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+
+  li {
+    display: inline-block;
+    margin: 5px;
+    padding: 2px 6px;
+    cursor: pointer;
+  }
+  
+  .selected {
+    background: #aaa;
+    border-radius: 50%;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}
