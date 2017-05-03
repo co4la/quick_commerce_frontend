@@ -32,67 +32,38 @@ class ProductList extends React.Component {
   }
 }
 
-export default class App extends React.Component {
+export default class EcommerceTable extends React.Component {
   constructor() {
     super();
 
     this.state = { 
-      products: []
+      page: 0
     };
   }
 
-  //componentDidMount() {
-    //this.loadProducts();
-  //}
-
-  //loadProducts() {
-    //axios.get('http://localhost:3000/api/v1/products', {
-      //params: {
-        //page: this.state.page 
-      //}
-    //})
-    //.then(products => {
-      //this.setState({ products: products.data.products });
-    //});
-  //}
-
-  //TODO: iffy because that means every time we get a new shop, we only render the first 12
-  //      may cause issues cus we may want to keep it at a certain page. but receiving the props
-  //      will cause it to always render the first 12 (per page count)
-
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      products: newProps.products.slice(0, PER_PAGE_COUNT)
-    });
-    //debugger;
-    //this.handlePageClick({selected: 0});
+  selectedPageProducts() {
+    const products = this.props.products;
+    const page = this.state.page;
+    const offset = page * PER_PAGE_COUNT;
+    
+    return products.slice(offset, offset + PER_PAGE_COUNT);
   }
 
   handlePageClick(data) {
-    const page = data.selected;
-    const offset = page * PER_PAGE_COUNT;
-
-    this.setState({
-      products: this.props.products.slice(offset, offset + PER_PAGE_COUNT)
-    });
-
-    //this.setState({ page }, () => {
-      //this.loadProducts();
-    //});
+    this.setState({ page: data.selected });
   }
 
   render() {
     return (
       <div>
-        <ProductList products={this.state.products} />
+        <ProductList products={this.selectedPageProducts()} />
         <ReactPaginate previousLabel={"<"}
                        nextLabel={">"}
                        pageCount={8}
                        marginPagesDisplayed={2}
                        pageRangeDisplayed={8}
                        onPageChange={this.handlePageClick.bind(this)}
-                       containerClassName={"paginator"}
-                       />
+                       containerClassName={"paginator"} />
       </div>
     );
   }
