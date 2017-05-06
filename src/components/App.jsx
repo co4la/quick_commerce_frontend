@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+
 import Header from './Header.jsx';
 import EcommerceTable from './EcommerceTable.jsx';
+
+require('../styles/app.scss');
 
 export default class App extends React.Component {
   constructor() {
@@ -18,7 +21,7 @@ export default class App extends React.Component {
   }
 
   loadUserShop() {
-    axios.get('http://localhost:3000/api/v1/users/1')
+    axios.get('http://localhost:3000/api/v1/users/2')
       .then(user => {
         this.setState({
           shop: user.data.user.shops[0],
@@ -26,7 +29,7 @@ export default class App extends React.Component {
         });
       });
   }
-  
+
   render() {
     return (
       <div>
