@@ -4,8 +4,12 @@ footer {
   align-items: center;
 
   .link-icons {
-    i {
-      padding: 5px;
+    a {
+      color: inherit;
+
+      i {
+        padding: 2px;
+      }
     }
   }
 }
